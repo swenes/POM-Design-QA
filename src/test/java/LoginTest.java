@@ -1,16 +1,18 @@
 import Base.BaseTest;
 import Pages.LoginPage;
 import Pages.MainPage;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
+@Feature("Login Test Senaryoları")
 public class LoginTest extends BaseTest {
 
     LoginPage login = new LoginPage();
     MainPage mainPage = new MainPage();
 
-    @Test
+    @Test(description = "Başarılı Kullanıcı Girişi")
     public void LoginSuccessful() throws InterruptedException {
 
         login.fillMail(mail)
@@ -22,7 +24,7 @@ public class LoginTest extends BaseTest {
 
     }
 
-    @Test
+    @Test(description = "Başarısız Kullanıcı Girişi")
     public void LoginUnsuccessful() throws InterruptedException {
 
         login.fillMail(mail)
@@ -34,7 +36,7 @@ public class LoginTest extends BaseTest {
 
     }
 
-    @Test
+    @Test(description = "Boş Karakter Kontrolü")
     public void RequiredControl() throws InterruptedException {
 
         login.clickLoginButton();
@@ -52,7 +54,7 @@ public class LoginTest extends BaseTest {
         assertEquals("Hesabım", value3);
     }
 
-    @Test
+    @Test(description = "Min Max Karakter Kontrolü")
     public void MinMaxCharacterControl() throws InterruptedException {
 
         login.fillMail("a")
@@ -74,5 +76,16 @@ public class LoginTest extends BaseTest {
         assertEquals("Hesabım", value3);
     }
 
+    @Test(description = "Başarısız Kullanıcı Girişi2")
+    public void LoginUnsuccessful2() throws InterruptedException {
+
+        login.fillMail(mail)
+                .fillPassword("123")
+                .clickLoginButton();
+        sleep(3000);
+        String value = mainPage.getAccountName();
+        assertEquals("Giriş Yap", value);
+
+    }
 
 }
